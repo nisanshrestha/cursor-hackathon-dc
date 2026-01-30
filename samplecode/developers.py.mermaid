@@ -1,0 +1,42 @@
+sequenceDiagram
+  participant Client
+  participant Router as FastAPI Router
+  participant Service as Developers Service
+  participant DB as PynamoDB Database
+  
+      %% GET Endpoint
+      Note over Client, DB: GET /developers/{name}
+      Client->>Router: GET /developers/{name}
+      Router->>Service: retrieve_developer(name=name)
+      Service->>DB: Query Developer by Name
+      DB-->>Service: Return Developer Data
+      Service-->>Router: Return DevelopersProxy
+      Router-->>Client: 200 OK (JSON)   
+          
+      %% POST Endpoint
+      Note over Client, DB: POST /developers
+      Client->>Router: POST /developers (Body: Developer Data)
+      Router->>Service: create_developer(developer=developer)      
+      alt Successful Creation
+        Service->>DB: Create New Record
+        DB-->>Service: Success
+        Service-->>Router: Return DevelopersProxy
+        Router-->>Client: 200 OK (Created Developer)
+      else ValueError (Developer Already Exists)
+        Service-->>Router: Raise ValueError
+        Router-->>Client: 409 Conflict
+      end
+      
+      %% PATCH Endpoint
+      Note over Client, DB: PATCH /developers
+      Client->>Router: PATCH /developers (Body: Update Data)
+      Router->>Service: update_developer(developer=developer)
+      alt Successful Update
+        Service->>DB: Update Existing Record
+        DB-->>Service: Success
+        Service-->>Router: Return DevelopersProxy
+        Router-->>Client: 200 OK (Updated Developer)
+      else DoesNotExist (Not Found)
+        Service-->>Router: Raise DoesNotExist
+        Router-->>Client: 404 Not Found
+      end

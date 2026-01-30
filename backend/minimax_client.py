@@ -19,7 +19,6 @@ DEFAULT_MODEL = "MiniMax-M2.1"
 def get_client() -> anthropic.Anthropic:
     """Build an Anthropic client configured for Minimax."""
     api_key = os.environ.get("MINIMAX_API_KEY")
-    print(f"API Key: {api_key}")
     if not api_key:
         raise ValueError(
             "MINIMAX_API_KEY environment variable is required. "
@@ -84,6 +83,31 @@ def chat(user_message: str, system: str | None = None, model: str = DEFAULT_MODE
             "content": [{"type": "text", "text": user_message}],
         }
     ]
+    return create_message(
+        messages=messages,
+        model=model,
+        system=system,
+    )
+
+
+def chat_with_history(
+    messages: list[dict],
+    system: str | None = None,
+    model: str = DEFAULT_MODEL,
+):
+    """
+    Multi-turn chat with Minimax using conversation history.
+
+    Args:
+        messages: List of message dicts with "role" and "content".
+                  content can be a list of blocks, e.g. [{"type": "text", "text": "Hello"}].
+                  Include the full conversation history (user + assistant messages).
+        system: Optional system prompt.
+        model: Model name.
+
+    Returns:
+        Full message response; use .content for text blocks.
+    """
     return create_message(
         messages=messages,
         model=model,

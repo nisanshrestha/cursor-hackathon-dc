@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CodeInsights",
+  "description": "Metadata mapping source code sections line ranges to Mermaid diagram line ranges",
+  "type": "object",
+  "properties": {
+    "codeInsights": {
+      "description": "Array of code insight mappings",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CodeInsight"
+      }
+    }
+  },
+  "required": ["codeInsights"],
+  "$defs": {
+    "CodeInsight": {
+      "description": "Mapping between source code lines and Mermaid diagram lines",
+      "type": "object",
+      "properties": {
+        "mermaidStartLine": {
+          "description": "Line number where the Mermaid diagram starts",
+          "type": "integer",
+          "minimum": 1
+        },
+        "codeStartLine": {
+          "description": "Line number where the corresponding source code starts",
+          "type": "integer",
+          "minimum": 1
+        },
+        "codeEndLine": {
+          "description": "Line number where the corresponding source code ends",
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": ["mermaidStartLine", "codeStartLine", "codeEndLine"],
+      "additionalProperties": false
+    }
+  }
+}
