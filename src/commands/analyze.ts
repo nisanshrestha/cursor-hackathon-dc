@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { getConfigSync } from '../config/settings';
-import { postJson } from '../services/apiClient';
+import { postJson, isLocalhostUrl } from '../services/apiClient';
 import { parseAnalysisResponse, parseStructuredResponse } from '../services/responseParser';
 import { getTaggedEntries, getTaggedContentSnapshots } from '../services/taggedContext';
 import { readDevnotesForFile } from '../devnotes/fileDevnotes';
@@ -64,8 +64,9 @@ async function runAnalyze(context: vscode.ExtensionContext, useMock: boolean): P
     const config = getConfigSync();
     const sourceFilePath = vscode.window.activeTextEditor?.document.uri.fsPath ?? '';
 
+    const isLocalhost = isLocalhostUrl(config.apiUrl);
     let apiKey = config.apiKey;
-    if (!useMock && !config.useMockResponse && !apiKey) {
+    if (!useMock && !config.useMockResponse && !isLocalhost && !apiKey) {
         const key = await vscode.window.showInputBox({
             prompt: 'Enter Devnotes API key (or set devnotes.analysisApiKey in settings)',
             placeHolder: 'sk-...',

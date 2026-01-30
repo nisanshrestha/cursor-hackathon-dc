@@ -60,12 +60,12 @@
         "devnotes.analysisApiUrl": {
           "type": "string",
           "default": "https://api.openai.com/v1/chat/completions",
-          "description": "Analysis API endpoint (OpenAI-compatible chat completions)."
+          "description": "Analysis API endpoint. For localhost (e.g. http://localhost:8000/analyze) no API key is required."
         },
         "devnotes.analysisApiKey": {
           "type": "string",
           "default": "",
-          "description": "API key. Leave empty to be prompted at runtime."
+          "description": "API key for remote APIs. Not required when using a localhost API."
         },
         "devnotes.analysisModel": {
           "type": "string",
