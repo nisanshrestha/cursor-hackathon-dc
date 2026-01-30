@@ -1,0 +1,29 @@
+# cursor-hackathon-dc Development Guidelines
+
+Auto-generated from all feature plans. Last updated: 2026-01-30
+
+## Active Technologies
+
+- TypeScript 4.x+ (target ES2020); Node.js as provided by VS Code extension hos + VS Code Extension API (`vscode`), no mandatory runtime HTTP library (built-in `https`/`http` preferred per constitution) (001-devnotes-code-visualization)
+
+## Project Structure
+
+```text
+src/
+tests/
+```
+
+## Commands
+
+npm test && npm run lint
+
+## Code Style
+
+TypeScript 4.x+ (target ES2020); Node.js as provided by VS Code extension hos: Follow standard conventions
+
+## Recent Changes
+
+- 001-devnotes-code-visualization: Added TypeScript 4.x+ (target ES2020); Node.js as provided by VS Code extension hos + VS Code Extension API (`vscode`), no mandatory runtime HTTP library (built-in `https`/`http` preferred per constitution)
+
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->

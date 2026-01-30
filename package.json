@@ -1,0 +1,164 @@
+{
+  "name": "devnotes-code-visualization",
+  "displayName": "Devnotes: Code Visualization",
+  "description": "Analyze code and display annotations and Mermaid diagrams via a configurable API. Tag files, add custom context in .devnotes, and generate holistic top-level .devnotes.",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:devnotes.analyze",
+    "onCommand:devnotes.analyzeWithMock",
+    "onCommand:devnotes.addToContext",
+    "onCommand:devnotes.removeFromContext",
+    "onCommand:devnotes.clearContext",
+    "onCommand:devnotes.openCustomContext",
+    "onCommand:devnotes.generateHolistic",
+    "onView:devnotes.customContext",
+    "onView:devnotes.results",
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "devnotes.analyze",
+        "title": "Devnotes: Analyze and visualize"
+      },
+      {
+        "command": "devnotes.addToContext",
+        "title": "Devnotes: Add current file (or selection) to context"
+      },
+      {
+        "command": "devnotes.removeFromContext",
+        "title": "Devnotes: Remove from context"
+      },
+      {
+        "command": "devnotes.clearContext",
+        "title": "Devnotes: Clear context"
+      },
+      {
+        "command": "devnotes.openCustomContext",
+        "title": "Devnotes: Open custom context"
+      },
+      {
+        "command": "devnotes.generateHolistic",
+        "title": "Devnotes: Generate holistic .devnotes"
+      },
+      {
+        "command": "devnotes.analyzeWithMock",
+        "title": "Devnotes: Analyze with mock response (demo)"
+      }
+    ],
+    "configuration": {
+      "title": "Devnotes",
+      "properties": {
+        "devnotes.analysisApiUrl": {
+          "type": "string",
+          "default": "https://api.openai.com/v1/chat/completions",
+          "description": "Analysis API endpoint (OpenAI-compatible chat completions)."
+        },
+        "devnotes.analysisApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "API key. Leave empty to be prompted at runtime."
+        },
+        "devnotes.analysisModel": {
+          "type": "string",
+          "default": "gpt-4o-mini",
+          "description": "Model name (e.g. gpt-4o-mini, gpt-4)."
+        },
+        "devnotes.useMockResponse": {
+          "type": "boolean",
+          "default": false,
+          "description": "Use mock API response for demo (structured mermaid_diagram + code_insights)."
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "devnotes.analyze",
+        "key": "ctrl+shift+d",
+        "mac": "cmd+shift+d",
+        "when": "editorTextFocus"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "devnotes",
+          "title": "Devnotes",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "devnotes": [
+        {
+          "type": "webview",
+          "id": "devnotes.customContext",
+          "name": "Custom Context"
+        },
+        {
+          "type": "webview",
+          "id": "devnotes.results",
+          "name": "Analysis Results"
+        }
+      ]
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "devnotes.analyze",
+          "when": "true"
+        },
+        {
+          "command": "devnotes.addToContext",
+          "when": "true"
+        },
+        {
+          "command": "devnotes.removeFromContext",
+          "when": "true"
+        },
+        {
+          "command": "devnotes.clearContext",
+          "when": "true"
+        },
+        {
+          "command": "devnotes.openCustomContext",
+          "when": "true"
+        },
+        {
+          "command": "devnotes.generateHolistic",
+          "when": "true"
+        },
+        {
+          "command": "devnotes.analyzeWithMock",
+          "when": "true"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "test": "npm run compile && npm run test:unit && npm run test:integration",
+    "test:unit": "node node_modules/mocha/bin/mocha tests/unit/**/*.test.js",
+    "test:integration": "node node_modules/mocha/bin/mocha tests/integration/**/*.test.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.60.0",
+    "@types/node": "14.x",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
+    "eslint": "^7.32.0",
+    "mocha": "^9.1.1",
+    "typescript": "^4.4.3"
+  }
+}
