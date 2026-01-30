@@ -12,13 +12,13 @@ const MOCK_ANALYSIS_RESPONSE = {
     mermaid_diagram:
         'sequenceDiagram\\n    participant C as Client\\n    participant R as FastAPI Router\\n    participant S as DevelopersService\\n    participant D as PynamoDB\\n\\n    Note over C,R: GET /developers/{name}\\n    C->>R: GET /developers/{name}\\n    R->>S: retrieve_developer(name)\\n    S->>D: Query developer\\n    D-->>S: Return result\\n    S-->>R: Return developer\\n    R-->>C: 200 OK with developer\\n\\n    Note over C,R: POST /developers\\n    C->>R: POST /developers\\n    R->>S: create_developer(developer)\\n    alt success\\n        S->>D: Create developer\\n        D-->>S: Confirm creation\\n        S-->>R: Return developer\\n        R-->>C: 201 Created\\n    else developer already exists\\n        S-->>R: Raise ValueError\\n        R-->>C: 409 Conflict\\n    end\\n\\n    Note over C,R: PATCH /developers\\n    C->>R: PATCH /developers\\n    R->>S: update_developer(developer)\\n    alt success\\n        S->>D: Update developer\\n        D-->>S: Confirm update\\n        S-->>R: Return developer\\n        R-->>C: 200 OK\\n    else developer not found\\n        S-->>R: Raise DoesNotExist\\n        R-->>C: 404 Not Found\\n    end',
     code_insights: [
-        { mermaidStartLine: 7, codeStartLine: 9, codeEndLine: 11 },
-        { mermaidStartLine: 15, codeStartLine: 14, codeEndLine: 20 },
+        { mermaidStartLine: 8, codeStartLine: 9, codeEndLine: 11 },
+        { mermaidStartLine: 17, codeStartLine: 14, codeEndLine: 20 },
         { mermaidStartLine: 18, codeStartLine: 16, codeEndLine: 18 },
-        { mermaidStartLine: 23, codeStartLine: 19, codeEndLine: 20 },
-        { mermaidStartLine: 28, codeStartLine: 23, codeEndLine: 29 },
-        { mermaidStartLine: 31, codeStartLine: 25, codeEndLine: 27 },
-        { mermaidStartLine: 36, codeStartLine: 28, codeEndLine: 29 },
+        { mermaidStartLine: 25, codeStartLine: 19, codeEndLine: 20 },
+        { mermaidStartLine: 31, codeStartLine: 23, codeEndLine: 29 },
+        { mermaidStartLine: 34, codeStartLine: 25, codeEndLine: 27 },
+        { mermaidStartLine: 39, codeStartLine: 28, codeEndLine: 29 },
     ],
 };
 

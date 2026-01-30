@@ -12,7 +12,7 @@ export function isLocalhostUrl(apiUrl: string): boolean {
     try {
         const u = url.parse(apiUrl);
         const hostname = (u.hostname ?? '').toLowerCase();
-        return hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1';
+        return hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::8000';
     } catch {
         return false;
     }
